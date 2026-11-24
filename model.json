@@ -1,0 +1,315 @@
+{
+  "model": "Logistic Regression",
+  "testRows": 300,
+  "metrics": {
+    "accuracy": 0.72,
+    "precision": 0.7247191011235955,
+    "recall": 0.7865853658536586,
+    "f1": 0.7543859649122807,
+    "roc_auc": 0.7997668579626973,
+    "confusion_matrix": [
+      [
+        87,
+        49
+      ],
+      [
+        35,
+        129
+      ]
+    ]
+  },
+  "diagnostics": {
+    "training_prior": 0.5466666666666666,
+    "baseline_accuracy": 0.5466666666666666,
+    "baseline_brier": 0.24782222222222225,
+    "brier": 0.18303090456919752,
+    "calibration": [
+      {
+        "band": "0-20%",
+        "students": 39,
+        "mean_score": 0.10599177037213374,
+        "observed_rate": 0.20512820512820512
+      },
+      {
+        "band": "20-40%",
+        "students": 50,
+        "mean_score": 0.29711936292234153,
+        "observed_rate": 0.22
+      },
+      {
+        "band": "40-60%",
+        "students": 63,
+        "mean_score": 0.504558850232348,
+        "observed_rate": 0.5079365079365079
+      },
+      {
+        "band": "60-80%",
+        "students": 77,
+        "mean_score": 0.7093580403149987,
+        "observed_rate": 0.6363636363636364
+      },
+      {
+        "band": "80-100%",
+        "students": 71,
+        "mean_score": 0.8967186098112059,
+        "observed_rate": 0.9014084507042254
+      }
+    ],
+    "thresholds": [
+      {
+        "cutoff": 10,
+        "tn": 19,
+        "fp": 117,
+        "fn": 2,
+        "tp": 162
+      },
+      {
+        "cutoff": 15,
+        "tn": 24,
+        "fp": 112,
+        "fn": 4,
+        "tp": 160
+      },
+      {
+        "cutoff": 20,
+        "tn": 31,
+        "fp": 105,
+        "fn": 8,
+        "tp": 156
+      },
+      {
+        "cutoff": 25,
+        "tn": 41,
+        "fp": 95,
+        "fn": 8,
+        "tp": 156
+      },
+      {
+        "cutoff": 30,
+        "tn": 53,
+        "fp": 83,
+        "fn": 14,
+        "tp": 150
+      },
+      {
+        "cutoff": 35,
+        "tn": 61,
+        "fp": 75,
+        "fn": 17,
+        "tp": 147
+      },
+      {
+        "cutoff": 40,
+        "tn": 70,
+        "fp": 66,
+        "fn": 19,
+        "tp": 145
+      },
+      {
+        "cutoff": 45,
+        "tn": 78,
+        "fp": 58,
+        "fn": 24,
+        "tp": 140
+      },
+      {
+        "cutoff": 50,
+        "tn": 87,
+        "fp": 49,
+        "fn": 35,
+        "tp": 129
+      },
+      {
+        "cutoff": 55,
+        "tn": 92,
+        "fp": 44,
+        "fn": 41,
+        "tp": 123
+      },
+      {
+        "cutoff": 60,
+        "tn": 101,
+        "fp": 35,
+        "fn": 51,
+        "tp": 113
+      },
+      {
+        "cutoff": 65,
+        "tn": 109,
+        "fp": 27,
+        "fn": 63,
+        "tp": 101
+      },
+      {
+        "cutoff": 70,
+        "tn": 114,
+        "fp": 22,
+        "fn": 68,
+        "tp": 96
+      },
+      {
+        "cutoff": 75,
+        "tn": 118,
+        "fp": 18,
+        "fn": 81,
+        "tp": 83
+      },
+      {
+        "cutoff": 80,
+        "tn": 129,
+        "fp": 7,
+        "fn": 100,
+        "tp": 64
+      },
+      {
+        "cutoff": 85,
+        "tn": 133,
+        "fp": 3,
+        "fn": 114,
+        "tp": 50
+      },
+      {
+        "cutoff": 90,
+        "tn": 136,
+        "fp": 0,
+        "fn": 129,
+        "tp": 35
+      },
+      {
+        "cutoff": 95,
+        "tn": 136,
+        "fp": 0,
+        "fn": 150,
+        "tp": 14
+      }
+    ]
+  },
+  "importance": [
+    {
+      "feature": "cgpa",
+      "mean_f1_drop": 0.05143387100898611,
+      "std_f1_drop": 0.019301193639907795
+    },
+    {
+      "feature": "coding_score",
+      "mean_f1_drop": 0.03928457107475674,
+      "std_f1_drop": 0.014603807845129503
+    },
+    {
+      "feature": "aptitude_score",
+      "mean_f1_drop": 0.018140486696611297,
+      "std_f1_drop": 0.011349757099434511
+    },
+    {
+      "feature": "backlogs",
+      "mean_f1_drop": 0.01478631848241547,
+      "std_f1_drop": 0.008608351691674147
+    },
+    {
+      "feature": "internships",
+      "mean_f1_drop": 0.008767461987485134,
+      "std_f1_drop": 0.005955273102193982
+    },
+    {
+      "feature": "communication_score",
+      "mean_f1_drop": 0.00730097713667698,
+      "std_f1_drop": 0.008926781611468902
+    },
+    {
+      "feature": "projects",
+      "mean_f1_drop": -0.0009117319987767917,
+      "std_f1_drop": 0.007344082378300071
+    },
+    {
+      "feature": "placement_training",
+      "mean_f1_drop": -0.0030370803435496863,
+      "std_f1_drop": 0.004423225037972307
+    },
+    {
+      "feature": "specialization",
+      "mean_f1_drop": -0.004811255136825805,
+      "std_f1_drop": 0.00948881915705508
+    },
+    {
+      "feature": "certifications",
+      "mean_f1_drop": -0.008820119576906935,
+      "std_f1_drop": 0.006339873415903416
+    }
+  ],
+  "numeric": [
+    "cgpa",
+    "aptitude_score",
+    "coding_score",
+    "communication_score",
+    "internships",
+    "projects",
+    "certifications",
+    "backlogs"
+  ],
+  "categorical": [
+    "specialization",
+    "placement_training"
+  ],
+  "means": [
+    7.236824999999999,
+    62.98416666666667,
+    59.22833333333333,
+    64.11,
+    0.7408333333333333,
+    2.4258333333333333,
+    1.3,
+    0.9066666666666666
+  ],
+  "scales": [
+    1.0646228609426283,
+    15.432020260016365,
+    19.271815272280108,
+    14.560605527701563,
+    0.8187384435147094,
+    1.4914755464155474,
+    1.1379806676741042,
+    0.9476051685990086
+  ],
+  "categories": [
+    [
+      "AI/ML",
+      "Cybersecurity",
+      "Data Science",
+      "Software Engineering"
+    ],
+    [
+      "No",
+      "Yes"
+    ]
+  ],
+  "weights": [
+    0.7180036202178073,
+    0.36462196335253444,
+    0.691863183071597,
+    0.28225415449942165,
+    0.33333499494358865,
+    0.16315459313016117,
+    0.08948901830165201,
+    -0.41450907420705124,
+    0.1486291823152042,
+    -0.05471914953575698,
+    0.2405837117663385,
+    -0.20203894593231989,
+    -0.09802627600145826,
+    0.23048107461492445
+  ],
+  "intercept": 0.13943420138262874,
+  "sample": {
+    "cgpa": 8.1,
+    "aptitude_score": 76,
+    "coding_score": 82,
+    "communication_score": 72,
+    "internships": 1,
+    "projects": 3,
+    "certifications": 2,
+    "backlogs": 0,
+    "specialization": "AI/ML",
+    "placement_training": "Yes"
+  },
+  "sampleProbability": 0.9525129998633531
+}

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Try the student placement prediction model from CSE276 Group 9 on fictional profiles.">
+  <title>Placement Lab · Student Placement Prediction</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.mjs"></script>
+</head>
+<body>
+  <header><div class="shell masthead"><a href="#top">Placement Lab</a><span>CSE276 · Group 9</span></div></header>
+  <main id="top" class="shell">
+    <section class="intro">
+      <h1>Student placement<br>prediction</h1>
+      <p>Enter a fictional student profile to estimate placement likelihood. Change one input to see how the model responds.</p>
+    </section>
+    <p id="status" role="status">Loading the trained model…</p>
+    <div id="dashboard" hidden>
+      <div class="workspace">
+        <section class="panel">
+          <h2>Student profile</h2>
+          <form id="profile"><div id="fields"></div><button type="submit">Predict placement</button></form>
+        </section>
+        <section class="panel">
+          <h2>What if one input changed?</h2>
+          <div class="scores" aria-live="polite">
+            <div><span>Applied profile</span><strong id="applied">—</strong><span id="classification"></span></div>
+            <div><span>Scenario estimate</span><strong id="scenario">—</strong><span id="difference"></span></div>
+          </div>
+          <label for="feature">Input to explore</label>
+          <select id="feature"></select>
+          <label for="value">Scenario value <output id="current" for="value"></output></label>
+          <input id="value" type="range">
+        </section>
+      </div>
+      <section class="evidence">
+        <h2>Model evaluation</h2>
+        <p id="method"></p>
+        <div class="metrics" id="metrics"></div>
+        <div class="workspace">
+          <section class="panel">
+            <h3>Decision cutoff</h3>
+            <label for="cutoff">Classify as placed at or above <output id="cutoff-label">50%</output></label>
+            <input id="cutoff" type="range" min="10" max="95" step="5" value="50">
+            <table><thead><tr><th scope="col">Actual outcome</th><th scope="col">Predicted no</th><th scope="col">Predicted yes</th></tr></thead><tbody id="matrix"></tbody></table>
+          </section>
+          <section class="panel">
+            <h3>Most influential features</h3>
+            <p>Average drop in holdout F1 when each input is shuffled.</p>
+            <ol id="importance"></ol>
+          </section>
+        </div>
+      </section>
+      <p class="note">The model was trained and evaluated on synthetic data. Use fictional profiles for this course demonstration.</p>
+    </div>
+  </main>
+</body>
+</html>
