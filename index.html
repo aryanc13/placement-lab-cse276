@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="app.mjs"></script>
+  <link rel="stylesheet" href="style.css?v=12k">
+  <script type="module" src="app.mjs?v=12k"></script>
 </head>
 <body>
   <a class="skip" href="#simulator">Skip to simulator</a>
@@ -100,6 +100,12 @@
               <div class="calibration-legend"><span><i class="legend-dot estimated"></i>Mean model estimate</span><span><i class="legend-dot observed"></i>Observed placement</span></div>
               <div id="calibration" class="calibration-grid"></div>
             </section>
+            <details class="panel calibration" id="training-comparison">
+              <summary>What changed when we trained on more data?</summary>
+              <p class="annotation" id="training-description"></p>
+              <table><thead><tr><th scope="col">Training profiles</th><th scope="col">Accuracy</th><th scope="col">Brier score ↓</th></tr></thead><tbody id="training-results"></tbody></table>
+              <p class="annotation" id="training-interval"></p>
+            </details>
           </div>
         </div>
       </section>

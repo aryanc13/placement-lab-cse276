@@ -95,7 +95,7 @@ function drawCurve(model, profile, key, scenarioValue) {
 }
 
 function showEvidence(model) {
-  node("method").textContent = model.model + " · " + model.testRows + " held-out synthetic profiles";
+  node("method").textContent = model.model + " · " + model.testRows.toLocaleString() + " held-out synthetic profiles";
   for (const [label, key] of Object.entries({ Accuracy: "accuracy", Precision: "precision", Recall: "recall", F1: "f1", "ROC AUC": "roc_auc" })) {
     const card = element("div");
     card.append(element("span", label), element("strong",
@@ -132,17 +132,33 @@ function showEvidence(model) {
   }
   node("cutoff").addEventListener("input", updateCutoff);
   updateCutoff();
+
+  const scale = model.trainingComparison;
+  for (const [n, accuracy, brier] of [
+    [scale.earlier_train_rows, scale.earlier_accuracy, scale.earlier_brier],
+    [scale.expanded_train_rows, scale.expanded_accuracy, scale.expanded_brier]
+  ]) {
+    const row = element("tr");
+    const label = element("th", n.toLocaleString());
+    label.scope = "row";
+    row.append(label, element("td", percent(accuracy)), element("td", brier.toFixed(4)));
+    node("training-results").append(row);
+  }
+  node("training-description").textContent =
+    "Both Logistic Regression models were scored on the same holdout. Lower Brier scores mean smaller probability errors.";
+  const [low, high] = scale.brier_reduction_ci95;
+  node("training-interval").textContent = "Paired 95% interval for the Brier score reduction: " +
+    low.toFixed(4) + " to " + high.toFixed(4) + ".";
 }
 
 async function main() {
-  const response = await fetch("./model.json");
+  const response = await fetch("./model.json?v=12k");
   if (!response.ok) throw new Error("Model unavailable");
   const model = await response.json();
   const presets = {
     early: { ...model.sample, cgpa: 6.4, aptitude_score: 49, coding_score: 42,
       communication_score: 52, internships: 0, projects: 1, certifications: 0, backlogs: 2, placement_training: "No" },
-    mid: { ...model.sample, cgpa: 7.2, aptitude_score: 60, coding_score: 60,
-      communication_score: 65, internships: 1, projects: 2, certifications: 1, backlogs: 1 },
+    mid: model.midProfile,
     sample: model.sample
   };
   let profile = { ...model.sample };
