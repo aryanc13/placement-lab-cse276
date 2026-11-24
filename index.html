@@ -3,57 +3,112 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Try the student placement prediction model from CSE276 Group 9 on fictional profiles.">
+  <meta name="theme-color" content="#f6f2e8">
+  <meta name="description" content="Explore student placement predictions and model evidence using fictional profiles. A CSE276 project.">
   <title>Placement Lab · Student Placement Prediction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script type="module" src="app.mjs"></script>
 </head>
 <body>
-  <header><div class="shell masthead"><a href="#top">Placement Lab</a><span>CSE276 · Group 9</span></div></header>
-  <main id="top" class="shell">
-    <section class="intro">
-      <h1>Student placement<br>prediction</h1>
-      <p>Enter a fictional student profile to estimate placement likelihood. Change one input to see how the model responds.</p>
-    </section>
-    <p id="status" role="status">Loading the trained model…</p>
+  <a class="skip" href="#simulator">Skip to simulator</a>
+  <header class="top">
+    <div class="shell masthead">
+      <a class="brand" href="#top" aria-label="Placement Lab home"><span class="mark" aria-hidden="true">✳</span>Placement Lab<span class="period">.</span></a>
+      <nav aria-label="Sections"><a href="#simulator">Simulator</a><a href="#evidence">Model evidence</a></nav>
+      <span class="course mono">CSE276 / GROUP 09</span>
+    </div>
+  </header>
+  <main id="top">
+    <div class="shell">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow mono"><span></span> Student placement prediction</div>
+          <h1 id="hero-title">What shapes<br>a <em>placement?</em></h1>
+          <p>Try a fictional student profile, change one variable, and see how the model responds.</p>
+          <a class="action" href="#simulator">Open the simulator <span aria-hidden="true">↘</span></a>
+        </div>
+        <figure class="hero-art">
+          <img src="campus-horizon.webp" width="1536" height="1024" fetchpriority="high" alt="Risograph illustration of two students looking toward a geometric campus under a lime sun.">
+        </figure>
+      </section>
+    </div>
+
+    <p id="status" class="shell loading" role="status">Loading the trained model…</p>
     <div id="dashboard" hidden>
-      <div class="workspace">
-        <section class="panel">
-          <h2>Student profile</h2>
-          <form id="profile"><div id="fields"></div><button type="submit">Predict placement</button></form>
-        </section>
-        <section class="panel">
-          <h2>What if one input changed?</h2>
-          <div class="scores" aria-live="polite">
-            <div><span>Applied profile</span><strong id="applied">—</strong><span id="classification"></span></div>
-            <div><span>Scenario estimate</span><strong id="scenario">—</strong><span id="difference"></span></div>
-          </div>
-          <label for="feature">Input to explore</label>
-          <select id="feature"></select>
-          <label for="value">Scenario value <output id="current" for="value"></output></label>
-          <input id="value" type="range">
-        </section>
-      </div>
-      <section class="evidence">
-        <h2>Model evaluation</h2>
-        <p id="method"></p>
-        <div class="metrics" id="metrics"></div>
+      <section id="simulator" class="shell simulator" aria-labelledby="sim-title">
+        <header class="section-head">
+          <div><p class="eyebrow mono">Student simulator</p><h2 id="sim-title">Run a what-if.</h2></div>
+          <p>Start with a fictional profile or edit your own. The comparison holds every other input fixed.</p>
+        </header>
         <div class="workspace">
-          <section class="panel">
-            <h3>Decision cutoff</h3>
-            <label for="cutoff">Classify as placed at or above <output id="cutoff-label">50%</output></label>
-            <input id="cutoff" type="range" min="10" max="95" step="5" value="50">
-            <table><thead><tr><th scope="col">Actual outcome</th><th scope="col">Predicted no</th><th scope="col">Predicted yes</th></tr></thead><tbody id="matrix"></tbody></table>
+          <section class="panel profile">
+            <h3>Student profile</h3>
+            <div class="presets" id="presets" role="group" aria-label="Fictional profile presets">
+              <button type="button" data-preset="early">Early prep</button>
+              <button type="button" data-preset="mid">Mid prep</button>
+              <button type="button" data-preset="sample" aria-pressed="true">Sample profile</button>
+            </div>
+            <form id="profile">
+              <div id="fields"></div>
+              <button type="submit" class="action">Apply profile <span aria-hidden="true">↗</span></button>
+            </form>
           </section>
-          <section class="panel">
-            <h3>Most influential features</h3>
-            <p>Average drop in holdout F1 when each input is shuffled.</p>
-            <ol id="importance"></ol>
+          <section class="panel forecast" aria-labelledby="forecast-title">
+            <div class="forecast-head"><h3 id="forecast-title">Placement estimate</h3><button type="button" class="download" id="export">Save comparison <span aria-hidden="true">↓</span></button></div>
+            <div class="scores" aria-live="polite">
+              <div><span>Applied profile</span><strong id="applied">—</strong><span id="classification"></span></div>
+              <div><span>What-if scenario</span><strong id="scenario">—</strong><span id="difference"></span></div>
+            </div>
+            <div class="scenario-controls">
+              <div><label for="feature">Input to explore</label><select id="feature"></select></div>
+              <div class="range-field"><label for="value">Scenario value <output id="current" for="value"></output></label><input id="value" type="range"></div>
+            </div>
+            <figure class="chart-figure">
+              <canvas id="curve" role="img" aria-label="Estimated placement probability across the selected input range"></canvas>
+              <figcaption><span><i class="legend-dot base"></i> Applied</span><span><i class="legend-dot scenario"></i> Scenario</span><span id="curve-caption"></span></figcaption>
+            </figure>
           </section>
         </div>
       </section>
-      <p class="note">The model was trained and evaluated on synthetic data. Use fictional profiles for this course demonstration.</p>
+
+      <section id="evidence" class="evidence" aria-labelledby="evidence-title">
+        <div class="shell">
+          <header class="section-head">
+            <div><p class="eyebrow mono">Model evaluation</p><h2 id="evidence-title">Check the evidence.</h2></div>
+            <p id="method"></p>
+          </header>
+          <div class="metrics" id="metrics"></div>
+          <div class="evidence-grid">
+            <section class="panel">
+              <h3>Decision cutoff</h3>
+              <label for="cutoff">Classify as placed at or above <output id="cutoff-label">50%</output></label>
+              <input id="cutoff" type="range" min="10" max="95" step="5" value="50">
+              <table><thead><tr><th scope="col">Actual outcome</th><th scope="col">Predict no</th><th scope="col">Predict yes</th></tr></thead><tbody id="matrix"></tbody></table>
+              <p class="annotation" id="cutoff-note"></p>
+            </section>
+            <section class="panel">
+              <h3>Feature influence</h3>
+              <p class="annotation">Average drop in holdout F1 when each input is shuffled.</p>
+              <ol class="importance" id="importance"></ol>
+            </section>
+            <section class="panel calibration">
+              <h3>Probability check</h3>
+              <p class="annotation">How the model’s average estimates compare with observed placement in each score band.</p>
+              <div class="calibration-legend"><span><i class="legend-dot estimated"></i>Mean model estimate</span><span><i class="legend-dot observed"></i>Observed placement</span></div>
+              <div id="calibration" class="calibration-grid"></div>
+            </section>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
+  <footer class="shell footer">
+    <a class="brand" href="#top"><span class="mark" aria-hidden="true">✳</span>Placement Lab<span class="period">.</span></a>
+    <p>A CSE276 project trained and evaluated on simulated data.</p>
+  </footer>
 </body>
 </html>
+
